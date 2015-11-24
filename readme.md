@@ -13,6 +13,7 @@ Build with [electron](http://electron.atom.io), [angular](https://angularjs.org)
 ## TODO
 
 * Better error handling (more info to the user)
+* Fix copy/pasting issues in settings
 * Up/Downloading indicator
 * Prettier Settings tab
 * Players name display
