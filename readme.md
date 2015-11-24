@@ -2,7 +2,9 @@
 
 ![](screenshot.png)
 
-A client for Giant Multiplayer Robot, for OS X, Linux\* and Windows\*
+A [Giant Multiplayer Robot](http://multiplayerrobot.com/) GUI client, for OS X, Linux\* and Windows\*
+
+In order to use it, you will need to get an authentication key from here: http://multiplayerrobot.com/Download
 
 Build with [electron](http://electron.atom.io), [angular](https://angularjs.org) and [photon](http://photonkit.com). 
 
