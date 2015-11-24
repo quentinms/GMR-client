@@ -1,0 +1,60 @@
+html,
+body {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.black {
+	color: black;
+}
+
+.white {
+	color: white;
+}
+
+.player-list {
+	list-style: none;
+}
+
+.player-item {
+	display: inline;
+}
+
+.small {
+	width: 32px;
+	height: 32px;
+}
+.xsmall {
+	width: 16px;
+	height: 16px;
+}
+
+.medium {
+	width: 64px;
+	height: 64px;
+}
+
+.large {
+	width: 128px;
+	height: 128px;
+}
+
+#settings {
+
+}
+
+#browse-button {
+	width: 20%;
+}
+
+#browse-text {
+	width: 75%;
+}

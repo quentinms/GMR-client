@@ -1,0 +1,96 @@
+<!doctype html>
+<html ng-app="eGMR">
+<head>
+	<meta charset="utf-8">
+	<title>GMR Client</title>
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/photon.min.css">
+	<script type="text/javascript">
+		require('./js/index.js');
+	</script>
+</head>
+<body>
+	<div ng-controller = "GlobalController as globalCtrl" class="window">
+		<div class="window-content">
+			<div class="pane-group">
+				<div ng-controller = "GameListController as gamesCtrl" class="pane-sm sidebar">
+					<ul class="list-group">
+						<li class="list-group-header">
+							<input class="form-control" ng-model="search" type="text" placeholder="Search for a game">
+						</li>
+						<li class="list-group-header">
+							<h4>My turn</h4>
+						</li>
+						<li ng-repeat="game in games|filter:{Name: search, CurrentTurn: {UserId: playerId}}" ng-click="setSelectedGame(game)" ng-class="{active: game.GameId === selectedGame.GameId}" class="list-group-item">
+							<img class="small img-circle media-object pull-left" ng-src="{{players[game.CurrentTurn.UserId].AvatarUrl}}">
+							<div class="media-body">
+								<h5>{{game.Name}}</h5>
+								<p>
+									<img ng-repeat="player in game.Players | filter:filterPlayers(game) | orderBy:'TurnOrder'" class="xsmall img-circle media-object pull-left" ng-src="{{players[player.UserId].AvatarUrl}}">
+								</p>
+							</div>
+						</li>
+						<li class="list-group-header">
+							<h4>Other games</h4>
+						</li>
+						<li ng-repeat="game in games|filter:{Name: search, CurrentTurn: {UserId: '!'+playerId}}" ng-click="setSelectedGame(game)" ng-class="{active: game.GameId === selectedGame.GameId && !isSettingsSelected}" class="list-group-item">
+							<img class="small img-circle media-object pull-left" ng-src="{{players[game.CurrentTurn.UserId].AvatarUrl}}">
+							<div class="media-body">
+								<h5>{{game.Name}}</h5>
+								<p>
+									<img ng-repeat="player in game.Players | filter:filterPlayers(game) | orderBy:'TurnOrder'" class="xsmall img-circle media-object pull-left" ng-src="{{players[player.UserId].AvatarUrl}}">
+								</p>
+							</div>
+						</li>
+						<li id="settings" ng-click="showSettings()" class="list-group-item" ng-class="{active: isSettingsSelected}">
+							<h4><span class="icon icon-cog"></span>Settings</h4>
+						</li>
+					</ul>
+				</div>
+				<div class="pane" ng-hide="isSettingsSelected" ng-controller = "GameInfoController as gameCtrl">
+					<h1 class="center-text">{{selectedGame.Name}}</h1>
+					<div class="center-text">
+						<img class="large img-circle media-object" ng-src="{{players[selectedGame.CurrentTurn.UserId].AvatarUrl}}">
+						<div class="center-text">
+							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="downloadSave()" class="btn btn-large btn-default"><i class="black icon icon-down-circled"></i>Download</button>
+							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="uploadSave()"class="btn btn-large btn-primary"><i class="white icon icon-up-circled"> </i> Upload</button>
+						</div>
+						<div ng-show="downloaded">Game has save been downloaded</div>
+						<div ng-show="uploaded">Game has save been uploaded</div>
+					</div>
+					<div>
+						<h3 class="center-text">{{timeRemaining}} remaining</h3>
+					</div>
+					<div class="center-text">
+						<ul class="player-list">
+							<li ng-repeat="player in selectedGame.Players | filter: filterPlayers | orderBy:'TurnOrder'" class="player-item">
+								<img class="medium img-circle media-object" ng-src="{{players[player.UserId].AvatarUrl}}">
+							</li>
+						</ul>
+					</div>
+					<div ng-show="error" class="center-text">
+						An error occured: {{error}}
+					</div>
+				</div>
+				<div class="pane" ng-show="isSettingsSelected" ng-controller="SettingsController as settingsCtrl">
+					<form>
+					  <div class="form-group">
+					    <label>Authentication Key</label>
+					    <input ng-model="settings.authKey" class="form-control" placeholder="I42D4242N7DI">
+					  </div>
+					  <div class="form-group">
+					    <label>Hotseat Save Folder</label>
+					    <input id="browse-text" ng-model="settings.saveFile" class="form-control" placeholder="/Users/D/T/C">
+					    <button ng-click="changeSaveFile()" id="browse-button" class="btn btn-form btn-default">Browse</button>
+					  </div>
+					  <div class="form-actions">
+					    <button type="submit" ng-click="cancelSettings()" class="btn btn-form btn-default">Cancel</button>
+					    <button type="submit" ng-click="saveSettings()" class="btn btn-form btn-primary">Save</button>
+					  </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

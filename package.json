@@ -1,0 +1,37 @@
+{
+  "name": "app",
+  "productName": "GMR",
+  "version": "0.0.7",
+  "description": "",
+  "license": "MIT",
+  "repository": "quentinms/GMR-client",
+  "author": {
+    "name": "Quentin Mazars-Simon",
+    "email": "",
+    "url": "quentin.nyc"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "electronVersion": "0.34.1",
+  "scripts": {
+    "test": "xo",
+    "start": "electron .",
+    "build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=$npm_package_electronVersion"
+  },
+  "main": "main.js",
+  "keywords": [
+    "electron-app"
+  ],
+  "dependencies": {
+    "angular": "1.4.7",
+    "electron-debug": "^0.3.0",
+    "json-bigint": "0.1.4",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.0.0",
+    "electron-prebuilt": "^0.34.1"
+  }
+}
