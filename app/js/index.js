@@ -145,7 +145,7 @@ app.controller('SettingsController', function ($scope) {
     }
     let newSave = dialog.showOpenDialog({defaultPath: defaultPath,  properties: ['openDirectory']})
     if (newSave) {
-      $scope.settings.saveFile = newSave[0]
+      $scope.settings.saveFile = newSave[0] + '/(GMR) Play this one!.Civ5Save'
     }
   }
 

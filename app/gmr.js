@@ -26,7 +26,7 @@ function GMR () {
 
   this.authenticateUser = function (authKey, callback) {
     let uri = `${host}AuthenticateUser?authKey=${self.authKey}`
-    return request.get(uri, {timeout: 1000}, (err, res, body) => {
+    return request.get(uri, {timeout: 5000}, (err, res, body) => {
       if (err) return callback(err)
       return callback(null, body)
     })
@@ -115,7 +115,7 @@ GMR.prototype.getGames = function () {
 GMR.prototype.getGameSave = function (gameId, callback) {
   let uri = `${host}GetLatestSaveFileBytes?authKey=${this.authKey}&gameId=${gameId}`
 
-  return request(uri).pipe(fs.createWriteStream(this.saveFile))
+  return request(uri, {timeout: 30000}).pipe(fs.createWriteStream(this.saveFile))
     .on('error', (err) => callback(err))
     .on('finish', callback)
 }
@@ -123,7 +123,7 @@ GMR.prototype.getGameSave = function (gameId, callback) {
 GMR.prototype.uploadGameSave = function (turnId, callback) {
   let uri = `${host}SubmitTurn?authKey=${this.authKey}&turnId=${turnId}`
   return fs.createReadStream(this.saveFile)
-    .pipe(request.post(uri))
+    .pipe(request.post(uri, {timeout: 30000}))
     .on('error', (err) => callback(err))
     .on('response', function(response) {
       console.log(response.statusCode)
