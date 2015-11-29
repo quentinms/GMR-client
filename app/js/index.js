@@ -106,20 +106,24 @@ app.controller('GameInfoController', function ($scope, $timeout) {
 
   $scope.downloadSave = function () {
     console.log(`Downloading...${$scope.selectedGame.GameId}`)
+    $scope.isLoading = true 
     return gmr.getGameSave($scope.selectedGame.GameId, (err) => {
       if (err) return $scope.$emit('error', err)
       return $scope.$apply(() => { 
-        $scope.downloaded = true 
+        $scope.downloaded = true
+        $scope.isLoading = false 
         return $timeout(() => {$scope.downloaded = false}, 5000)
       })
     })
   }
 
   $scope.uploadSave = function () {
+    $scope.isLoading = true 
     return gmr.uploadGameSave($scope.selectedGame.CurrentTurn.TurnId, (err) => {
       if (err) return $scope.$emit('error', err)
       return $scope.$apply(() => { 
-        $scope.uploaded = true 
+        $scope.uploaded = true
+        $scope.isLoading = false 
         return $timeout(() => {$scope.uploaded = false}, 5000)
       })
     })

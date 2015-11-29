@@ -51,12 +51,16 @@
 					<h1 class="center-text">{{selectedGame.Name}}</h1>
 					<div class="center-text">
 						<img class="large img-circle media-object" ng-src="{{players[selectedGame.CurrentTurn.UserId].AvatarUrl}}">
-						<div class="center-text">
+						<div ng-hide="isLoading" class="center-text">
 							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="downloadSave()" class="btn btn-large btn-default"><i class="black icon icon-down-circled"></i>Download</button>
 							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="uploadSave()"class="btn btn-large btn-primary"><i class="white icon icon-up-circled"> </i> Upload</button>
 						</div>
 						<div ng-show="downloaded">Game has save been downloaded</div>
 						<div ng-show="uploaded">Game has save been uploaded</div>
+						<div ng-show="isLoading" class="spinner">
+						  	<div class="double-bounce1"></div>
+						  	<div class="double-bounce2"></div>
+						</div>
 					</div>
 					<div>
 						<h3 class="center-text">{{timeRemaining}} remaining</h3>
