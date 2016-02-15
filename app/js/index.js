@@ -101,7 +101,11 @@ app.controller('GameInfoController', function ($scope, $timeout) {
   $scope.filterPlayers = filterPlayers($scope.selectedGame)
 
   $scope.$on('selectedGameWasUpdated', () => {
-    return $scope.timeRemaining = moment($scope.selectedGame.CurrentTurn.Expires).fromNow(true)
+    const timeRemaining = moment($scope.selectedGame.CurrentTurn.Expires).fromNow(true)
+    if (!timeRemaining) {
+      timeRemaining = '∞'
+    }
+    return $scope.timeRemaining = timeRemaining
   })
 
   $scope.downloadSave = function () {
