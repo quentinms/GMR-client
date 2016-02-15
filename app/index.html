@@ -67,7 +67,7 @@
 					</div>
 					<div class="center-text">
 						<ul class="player-list">
-							<li ng-repeat="player in selectedGame.Players | filter: filterPlayers | orderBy:'TurnOrder'" class="player-item">
+							<li ng-repeat="player in selectedGame.Players | filter: filterPlayers(selectedGame) | orderBy:'TurnOrder'" class="player-item">
 								<img class="medium img-circle media-object" ng-src="{{players[player.UserId].AvatarUrl}}">
 							</li>
 						</ul>

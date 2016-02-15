@@ -93,12 +93,16 @@ app.controller('GlobalController', function ($scope, $timeout) {
     return showError(err)
   })
 
+  $scope.filterPlayers = function filterPlayers (game) {
+    return function (player) {
+      return player.UserId !== '0' && player.UserId !== game.CurrentTurn.UserId
+    }
+  }
+
 })
 
 app.controller('GameInfoController', function ($scope, $timeout) {
   $scope.timeRemaining = '9000 years'
-
-  $scope.filterPlayers = filterPlayers($scope.selectedGame)
 
   $scope.$on('selectedGameWasUpdated', () => {
     const timeRemaining = moment($scope.selectedGame.CurrentTurn.Expires).fromNow(true)
@@ -135,9 +139,7 @@ app.controller('GameInfoController', function ($scope, $timeout) {
 
 })
 
-app.controller('GameListController', function ($scope) {
-  return $scope.filterPlayers = filterPlayers
-})
+app.controller('GameListController', function ($scope) {})
 
 app.controller('SettingsController', function ($scope) {
   $scope.settings = gmr.getSettings()
@@ -166,9 +168,3 @@ app.controller('SettingsController', function ($scope) {
     $scope.settings = gmr.getSettings()
   }
 })
-
-function filterPlayers (game) {
-  return function (player) {
-    return player.UserId !== '0' && player.UserId !== game.CurrentTurn.UserId
-  }
-}
