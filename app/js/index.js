@@ -105,7 +105,7 @@ app.controller('GameInfoController', function ($scope, $timeout) {
   $scope.timeRemaining = '9000 years'
 
   $scope.$on('selectedGameWasUpdated', () => {
-    const timeRemaining = moment($scope.selectedGame.CurrentTurn.Expires).fromNow(true)
+    let timeRemaining = moment($scope.selectedGame.CurrentTurn.Expires).fromNow(true)
     if (!timeRemaining) {
       timeRemaining = '∞'
     }
