@@ -5,40 +5,86 @@ let moment = require('moment')
 let remote = require('remote')
 let dialog = remote.require('dialog')
 const HomeFolder = remote.require('app').getPath('home')
+const Menu = remote.require('menu')
 
-let app = angular.module("eGMR", [])
+// http://electron.atom.io/docs/v0.30.0/api/menu/
+const template = [
+  {
+    label: 'Application',
+    submenu: [
+      { label: 'About Application', selector: 'orderFrontStandardAboutPanel:' },
+      { type: 'separator' },
+      { label: 'Quit', accelerator: 'Command+Q', selector: 'terminate:'}
+    ]
+  }, 
+  {
+    label: 'Edit',
+    submenu: [
+      { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+      { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
+      { type: 'separator' },
+      { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+      { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+      { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+      { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' }
+    ]
+  }, 
+  {
+    label: 'View',
+    submenu: [
+      {
+        label: 'Reload',
+        accelerator: 'Command+R',
+        click: function() { remote.getCurrentWindow().reload(); }
+      }, 
+      { type: 'separator' },
+      {
+        label: 'Toggle DevTools',
+        accelerator: 'Alt+Command+I',
+        click: function() { remote.getCurrentWindow().toggleDevTools(); }
+      }
+    ]
+  }
+]
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+
+
+
+/* Here begins Angular */
+let app = angular.module('eGMR', [])
 let gmr = new GMR()
 
 let placeholder = [{
-  "Name":"Loading",
-  "GameId":0,
-  "Players":[],
-  "CurrentTurn":{
-    "TurnId":1921429,
-    "Number":80,
-    "UserId":"76561198001984842",
-    "Started":"1970-01-29T22:36:19.11",
-    "Expires":"1970-01-03T02:36:19.11",
-    "Skipped":false,
-    "PlayerNumber":2,
-    "IsFirstTurn":false
+  'Name':'Loading',
+  'GameId':0,
+  'Players':[],
+  'CurrentTurn':{
+    'TurnId':1921429,
+    'Number':80,
+    'UserId':'76561198001984842',
+    'Started':'1970-01-29T22:36:19.11',
+    'Expires':'1970-01-03T02:36:19.11',
+    'Skipped':false,
+    'PlayerNumber':2,
+    'IsFirstTurn':false
   },
-  "Type":0
+  'Type':0
 }, {
-  "Name":"...",
-  "GameId":-1,
-  "Players":[],
-  "CurrentTurn":{
-    "TurnId":1921429,
-    "Number":80,
-    "UserId":"76561198001984842",
-    "Started":"2015-10-29T22:36:19.11",
-    "Expires":"2015-11-03T02:36:19.11",
-    "Skipped":false,
-    "PlayerNumber":2,
-    "IsFirstTurn":false
+  'Name':'...',
+  'GameId':-1,
+  'Players':[],
+  'CurrentTurn':{
+    'TurnId':1921429,
+    'Number':80,
+    'UserId':'76561198001984842',
+    'Started':'2015-10-29T22:36:19.11',
+    'Expires':'2015-11-03T02:36:19.11',
+    'Skipped':false,
+    'PlayerNumber':2,
+    'IsFirstTurn':false
   },
-  "Type":0
+  'Type':0
 }
 ]
 
