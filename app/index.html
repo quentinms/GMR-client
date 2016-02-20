@@ -79,17 +79,17 @@
 				<div class="pane" ng-show="isSettingsSelected" ng-controller="SettingsController as settingsCtrl">
 					<form>
 					  <div class="form-group">
-					    <label>Authentication Key</label>
+					    <h4>Authentication Key</h4>
 					    <input ng-model="settings.authKey" class="form-control" placeholder="I42D4242N7DI">
 					  </div>
 					  <div class="form-group">
-					    <label>Hotseat Save Folder</label>
+					    <h4>Hotseat Save Folder</h4>
 					    <input id="browse-text" ng-model="settings.saveFile" class="form-control" placeholder="/Users/D/T/C">
-					    <button ng-click="changeSaveFile()" id="browse-button" class="btn btn-form btn-default">Browse</button>
+					    <button ng-click="changeSaveFile()" id="browse-button" class="btn btn-large btn-form btn-default">Browse</button>
 					  </div>
-					  <div class="form-actions">
-					    <button type="submit" ng-click="cancelSettings()" class="btn btn-form btn-default">Cancel</button>
-					    <button type="submit" ng-click="saveSettings()" class="btn btn-form btn-primary">Save</button>
+					  <div class="center-text" class="form-actions">
+					    <button type="submit" ng-click="cancelSettings()" class="btn btn-large btn-form btn-default">Cancel</button>
+					    <button type="submit" ng-click="saveSettings()" class="btn btn-large btn-form btn-primary">Save</button>
 					  </div>
 					</form>
 				</div>
