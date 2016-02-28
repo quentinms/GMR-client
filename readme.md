@@ -4,7 +4,7 @@
 
 A [Giant Multiplayer Robot](http://multiplayerrobot.com/) GUI client, for OS X, Linux\* and Windows\*
 
-You can download the app from here: https://github.com/quentinms/GMR-client/releases/download/v0.0.7/eGMR.app.zip  
+You can download the app from here: https://github.com/quentinms/GMR-client/releases/latest 
 In order to use it, you will need to get an authentication key from here: http://multiplayerrobot.com/Download
 
 Build with [electron](http://electron.atom.io), [angular](https://angularjs.org) and [photon](http://photonkit.com). 
@@ -14,10 +14,10 @@ Build with [electron](http://electron.atom.io), [angular](https://angularjs.org)
 ## TODO
 
 * Better error handling (more info to the user)
-* Fix copy/pasting issues in settings
-* Up/Downloading indicator
 * Prettier Settings tab
 * Players name display
+* Validation before uploading
+* Watch folder for save changes
 
 ## Dev
 
