@@ -1,16 +1,13 @@
 'use strict'
-let request      = require('request')
-let async        = require('async')
-let JSONbig      = require('json-bigint');
-let _            = require('lodash')
-let EventEmitter = require('events').EventEmitter
-let util         = require('util')
-let fs           = require('fs')
-let Config       = require('./config/gmr.json')
+const request      = require('request').defaults({forever: true})
+const async        = require('async')
+const JSONbig      = require('json-bigint');
+const _            = require('lodash')
+const util         = require('util')
+const fs           = require('fs')
+const Config       = require('./config/gmr.json')
 
 module.exports = GMR
-
-util.inherits(GMR, EventEmitter)
 
 let host = 'http://multiplayerrobot.com/api/Diplomacy/'
 
@@ -73,8 +70,8 @@ GMR.prototype.fetchInfo = function (callback) {
       })
     }, 
     function getPlayers (callback) {
-      let playerIds = _(self.games).pluck('Players').flatten()
-        .pluck('UserId').unique().filter(n => n !== 0)
+      let playerIds = _(self.games).map('Players').flatten()
+        .map('UserId').uniq().filter(n => n !== 0)
         .value()
       self.getGamesAndPlayers(playerIds, self.authKey, (err, gamesAndPlayers) => {
         if (err) return callback (err)
