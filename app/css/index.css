@@ -13,11 +13,11 @@ body {
 }
 
 .black {
-	color: black;
+	color: black !important;
 }
 
 .white {
-	color: white;
+	color: white !important;
 }
 
 .player-list {

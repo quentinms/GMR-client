@@ -150,6 +150,17 @@ app.controller('GameInfoController', function ($scope, $timeout) {
     })
   }
 
+  $scope.launchCivilization = function () {
+    const runCommand = 'open' //TODO get command for other platforms
+
+    const spawn = require('child_process').spawn;
+    const child = spawn(runCommand, ['steam://run/8930'], {
+      detached: true,
+      stdio: [ 'ignore', 'ignore', 'ignore' ]
+    })
+    child.unref();
+  }
+
 })
 
 app.controller('GameListController', function ($scope) {})

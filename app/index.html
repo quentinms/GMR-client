@@ -53,7 +53,8 @@
 						<img ng-attr-title="{{players[selectedGame.CurrentTurn.UserId].PersonaName}}" class="large img-circle media-object" ng-src="{{players[selectedGame.CurrentTurn.UserId].AvatarUrl}}">
 						<div ng-hide="isLoading" class="center-text">
 							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="downloadSave()" class="btn btn-large btn-default"><i class="black icon icon-down-circled"></i>Download</button>
-							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="uploadSave()"class="btn btn-large btn-primary"><i class="white icon icon-up-circled"> </i> Upload</button>
+							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="uploadSave()" class="btn btn-large btn-primary"><i class="white icon icon-up-circled"></i> Upload</button>
+							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="launchCivilization()" class="btn btn-large btn-positive"><i class="white icon icon-play"></i> Run</button>
 						</div>
 						<div ng-show="downloaded">Game has save been downloaded</div>
 						<div ng-show="uploaded">Game has save been uploaded</div>
