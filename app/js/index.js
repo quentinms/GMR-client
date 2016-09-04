@@ -1,11 +1,11 @@
 'use strict'
-let GMR = require('../gmr.js')
-let angular = require('angular')
-let moment = require('moment')
-let remote = require('remote')
-let dialog = remote.require('dialog')
-const HomeFolder = remote.require('app').getPath('home')
-const Menu = remote.require('menu')
+const GMR = require('../gmr.js')
+const angular = require('angular')
+const moment = require('moment')
+const remote = require('electron').remote
+const dialog = remote.dialog
+const HomeFolder = remote.app.getPath('home')
+const Menu = remote.Menu
 
 // http://electron.atom.io/docs/v0.30.0/api/menu/
 const template = [
@@ -55,43 +55,10 @@ Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 let app = angular.module('eGMR', [])
 let gmr = new GMR()
 
-let placeholder = [{
-  'Name':'Loading',
-  'GameId':0,
-  'Players':[],
-  'CurrentTurn':{
-    'TurnId':1921429,
-    'Number':80,
-    'UserId':'76561198001984842',
-    'Started':'1970-01-29T22:36:19.11',
-    'Expires':'1970-01-03T02:36:19.11',
-    'Skipped':false,
-    'PlayerNumber':2,
-    'IsFirstTurn':false
-  },
-  'Type':0
-}, {
-  'Name':'...',
-  'GameId':-1,
-  'Players':[],
-  'CurrentTurn':{
-    'TurnId':1921429,
-    'Number':80,
-    'UserId':'76561198001984842',
-    'Started':'2015-10-29T22:36:19.11',
-    'Expires':'2015-11-03T02:36:19.11',
-    'Skipped':false,
-    'PlayerNumber':2,
-    'IsFirstTurn':false
-  },
-  'Type':0
-}
-]
-
 app.controller('GlobalController', function ($scope, $timeout) {
-  $scope.players = []
-  $scope.games = placeholder
-  $scope.selectedGame = $scope.games[0]
+  // $scope.players = []
+  // $scope.games = []
+  $scope.selectedGame = {}
   $scope.playerId = -1
   $scope.isSettingsSelected = false
 
@@ -132,7 +99,7 @@ app.controller('GlobalController', function ($scope, $timeout) {
 
   function showError (err) {
     $scope.error = err
-    return $timeout(() => {$scope.error=''}, 5000)
+    return $timeout(() => {$scope.error=''}, 10000)
   }
 
   $scope.$on('error', (err) => {
@@ -148,7 +115,7 @@ app.controller('GlobalController', function ($scope, $timeout) {
 })
 
 app.controller('GameInfoController', function ($scope, $timeout) {
-  $scope.timeRemaining = '9000 years'
+  $scope.timeRemaining = '∞'
 
   $scope.$on('selectedGameWasUpdated', () => {
     let timeRemaining = moment($scope.selectedGame.CurrentTurn.Expires).fromNow(true)

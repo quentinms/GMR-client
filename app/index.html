@@ -47,10 +47,10 @@
 						</li>
 					</ul>
 				</div>
-				<div class="pane" ng-hide="isSettingsSelected" ng-controller = "GameInfoController as gameCtrl">
+				<div class="pane" ng-hide="isSettingsSelected || !games" ng-controller = "GameInfoController as gameCtrl">
 					<h1 class="center-text">{{selectedGame.Name}}</h1>
 					<div class="center-text">
-						<img class="large img-circle media-object" ng-src="{{players[selectedGame.CurrentTurn.UserId].AvatarUrl}}">
+						<img ng-attr-title="{{players[selectedGame.CurrentTurn.UserId].PersonaName}}" class="large img-circle media-object" ng-src="{{players[selectedGame.CurrentTurn.UserId].AvatarUrl}}">
 						<div ng-hide="isLoading" class="center-text">
 							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="downloadSave()" class="btn btn-large btn-default"><i class="black icon icon-down-circled"></i>Download</button>
 							<button ng-show="selectedGame.CurrentTurn.UserId===playerId" ng-click="uploadSave()"class="btn btn-large btn-primary"><i class="white icon icon-up-circled"> </i> Upload</button>
@@ -58,8 +58,8 @@
 						<div ng-show="downloaded">Game has save been downloaded</div>
 						<div ng-show="uploaded">Game has save been uploaded</div>
 						<div ng-show="isLoading" class="spinner">
-						  	<div class="double-bounce1"></div>
-						  	<div class="double-bounce2"></div>
+							<div class="double-bounce1"></div>
+							<div class="double-bounce2"></div>
 						</div>
 					</div>
 					<div>
@@ -68,7 +68,7 @@
 					<div class="center-text">
 						<ul class="player-list">
 							<li ng-repeat="player in selectedGame.Players | filter: filterPlayers(selectedGame) | orderBy:'TurnOrder'" class="player-item">
-								<img class="medium img-circle media-object" ng-src="{{players[player.UserId].AvatarUrl}}">
+								<img ng-attr-title="{{players[player.UserId].PersonaName}}" class="medium img-circle media-object" ng-src="{{players[player.UserId].AvatarUrl}}">
 							</li>
 						</ul>
 					</div>
@@ -78,20 +78,27 @@
 				</div>
 				<div class="pane" ng-show="isSettingsSelected" ng-controller="SettingsController as settingsCtrl">
 					<form>
-					  <div class="form-group">
-					    <h4>Authentication Key</h4>
-					    <input ng-model="settings.authKey" class="form-control" placeholder="I42D4242N7DI">
-					  </div>
-					  <div class="form-group">
-					    <h4>Hotseat Save Folder</h4>
-					    <input id="browse-text" ng-model="settings.saveFile" class="form-control" placeholder="/Users/D/T/C">
-					    <button ng-click="changeSaveFile()" id="browse-button" class="btn btn-large btn-form btn-default">Browse</button>
-					  </div>
-					  <div class="center-text" class="form-actions">
-					    <button type="submit" ng-click="cancelSettings()" class="btn btn-large btn-form btn-default">Cancel</button>
-					    <button type="submit" ng-click="saveSettings()" class="btn btn-large btn-form btn-primary">Save</button>
-					  </div>
+						<div class="form-group">
+							<h4>Authentication Key</h4>
+							<input ng-model="settings.authKey" class="form-control" placeholder="I42D4242N7DI">
+						</div>
+						<div class="form-group">
+							<h4>Hotseat Save Folder</h4>
+							<input id="browse-text" ng-model="settings.saveFile" class="form-control" placeholder="/Users/D/T/C">
+							<button ng-click="changeSaveFile()" id="browse-button" class="btn btn-large btn-form btn-default">Browse</button>
+						</div>
+						<div class="center-text" class="form-actions">
+							<button type="submit" ng-click="cancelSettings()" class="btn btn-large btn-form btn-default">Cancel</button>
+							<button type="submit" ng-click="saveSettings()" class="btn btn-large btn-form btn-primary">Save</button>
+						</div>
 					</form>
+				</div>
+				<div ng-show="!isSettingsSelected && !games" class="center-text" id="main-loading">
+					<h1>Loading...</h1>
+					<div class="spinner">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
 				</div>
 			</div>
 		</div>

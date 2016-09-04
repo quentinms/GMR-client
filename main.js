@@ -1,14 +1,9 @@
 'use strict'
-const app = require('app')
-const BrowserWindow = require('browser-window')
-
-// report crashes to the Electron project
-require('crash-reporter').start()
+const app = require('electron').app
+const BrowserWindow = require('electron').BrowserWindow
 
 // adds debug features like hotkeys for triggering dev tools and reload
-// require('electron-debug')({
-//   showDevTools: true
-// })
+//require('electron-debug')({showDevTools: true})
 
 // prevent window being garbage collected
 let mainWindow
@@ -21,11 +16,11 @@ function onClosed() {
 
 function createMainWindow() {
   const win = new BrowserWindow({
-    width : 800,
-    height: 600
+    minWidth : 800,
+    minHeight: 600
   })
 
-  win.loadUrl(`file://${__dirname}/app/index.html`)
+  win.loadURL(`file://${__dirname}/app/index.html`)
   win.on('closed', onClosed)
 
   return win

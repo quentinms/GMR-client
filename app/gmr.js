@@ -1,9 +1,8 @@
 'use strict'
 const request      = require('request').defaults({forever: true})
 const async        = require('async')
-const JSONbig      = require('json-bigint');
+const JSONbig      = require('json-bigint')
 const _            = require('lodash')
-const util         = require('util')
 const fs           = require('fs')
 const Config       = require('./config/gmr.json')
 
@@ -50,7 +49,7 @@ GMR.prototype.fetchInfo = function (callback) {
       self.authenticateUser(self.authKey, (err, id) => {
         if (err) return callback (err)
         self.playerId = id
-        return callback(null)
+        return callback()
       })
     }, 
     function getGames (callback) {
@@ -66,12 +65,12 @@ GMR.prototype.fetchInfo = function (callback) {
           })
         })
 
-        return callback(null)
+        return callback()
       })
     }, 
     function getPlayers (callback) {
       let playerIds = _(self.games).map('Players').flatten()
-        .map('UserId').uniq().filter(n => n !== 0)
+        .map('UserId').uniq().filter(n => n !== '0') //Remove bots
         .value()
       self.getGamesAndPlayers(playerIds, self.authKey, (err, gamesAndPlayers) => {
         if (err) return callback (err)
@@ -82,7 +81,7 @@ GMR.prototype.fetchInfo = function (callback) {
           ps[p.SteamID] = p
           return ps
         }, {})
-        return callback(null)
+        return callback()
       })
     }
   ], (err) => {
@@ -95,17 +94,14 @@ GMR.prototype.fetchInfo = function (callback) {
 }
 
 GMR.prototype.getPlayerId = function () {
-  console.log(this.playerId)
   return this.playerId
 }
 
 GMR.prototype.getPlayers = function () {
-  console.log(this.players)
   return this.players
 }
 
 GMR.prototype.getGames = function () {
-  console.log(this.games)
   return this.games
 }
 
@@ -122,10 +118,6 @@ GMR.prototype.uploadGameSave = function (turnId, callback) {
   return fs.createReadStream(this.saveFile)
     .pipe(request.post(uri, {timeout: 30000}))
     .on('error', (err) => callback(err))
-    .on('response', function(response) {
-      console.log(response.statusCode)
-      console.log(response)
-    })
     .on('end', callback)
 }
 
