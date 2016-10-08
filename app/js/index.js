@@ -2,6 +2,7 @@
 const GMR = require('../gmr.js')
 const angular = require('angular')
 const moment = require('moment')
+const os = require('os')
 const remote = require('electron').remote
 const dialog = remote.dialog
 const HomeFolder = remote.app.getPath('home')
@@ -151,7 +152,14 @@ app.controller('GameInfoController', function ($scope, $timeout) {
   }
 
   $scope.launchCivilization = function () {
-    const runCommand = 'open' //TODO get command for other platforms
+    const commands = {
+      darwin:'open',
+      windows:'cmd /c start', //TODO test
+      linux:'xdg-open', //TODO check if xdg-open is installed (xdg-utils)
+      openbsd:'xdg-open', //TODO test
+      freebsd:'xdg-open', //TODO test
+    }
+    const runCommand = commands[os.platform()]
 
     const spawn = require('child_process').spawn;
     const child = spawn(runCommand, ['steam://run/8930'], {
