@@ -119,11 +119,8 @@ app.controller('GameInfoController', function ($scope, $timeout) {
   $scope.timeRemaining = '∞'
 
   $scope.$on('selectedGameWasUpdated', () => {
-    let timeRemaining = moment($scope.selectedGame.CurrentTurn.Expires).fromNow(true)
-    if (!timeRemaining) {
-      timeRemaining = '∞'
-    }
-    return $scope.timeRemaining = timeRemaining
+    const expires = $scope.selectedGame.CurrentTurn.Expires
+    return $scope.timeRemaining = expires ? moment(expires).fromNow(true) : '∞'
   })
 
   $scope.downloadSave = function () {
