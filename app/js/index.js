@@ -13,9 +13,16 @@ const template = [
   {
     label: 'Application',
     submenu: [
-      { label: 'About Application', selector: 'orderFrontStandardAboutPanel:' },
+      {
+        label: 'About Application',
+        selector: 'orderFrontStandardAboutPanel:' //FIXME only works on OSX
+      },
       { type: 'separator' },
-      { label: 'Quit', accelerator: 'Command+Q', selector: 'terminate:'}
+      {
+        label: 'Quit',
+        accelerator: 'CmdOrCtrl+Q',
+        click: function() {remote.app.exit(0);}
+      }
     ]
   }, 
   {
@@ -35,13 +42,13 @@ const template = [
     submenu: [
       {
         label: 'Reload',
-        accelerator: 'Command+R',
+        accelerator: 'CmdOrCtrl+R',
         click: function() { remote.getCurrentWindow().reload(); }
       }, 
       { type: 'separator' },
       {
         label: 'Toggle DevTools',
-        accelerator: 'Alt+Command+I',
+        accelerator: 'Alt+CmdOrCtrl+I',
         click: function() { remote.getCurrentWindow().toggleDevTools(); }
       }
     ]
