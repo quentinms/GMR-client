@@ -7,49 +7,6 @@ const dialog = remote.dialog
 const HomeFolder = remote.app.getPath('home')
 const Menu = remote.Menu
 
-// http://electron.atom.io/docs/v0.30.0/api/menu/
-const template = [
-  {
-    label: 'Application',
-    submenu: [
-      { label: 'About Application', selector: 'orderFrontStandardAboutPanel:' },
-      { type: 'separator' },
-      { label: 'Quit', accelerator: 'Command+Q', selector: 'terminate:'}
-    ]
-  }, 
-  {
-    label: 'Edit',
-    submenu: [
-      { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
-      { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
-      { type: 'separator' },
-      { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
-      { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
-      { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-      { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' }
-    ]
-  }, 
-  {
-    label: 'View',
-    submenu: [
-      {
-        label: 'Reload',
-        accelerator: 'Command+R',
-        click: function() { remote.getCurrentWindow().reload(); }
-      }, 
-      { type: 'separator' },
-      {
-        label: 'Toggle DevTools',
-        accelerator: 'Alt+Command+I',
-        click: function() { remote.getCurrentWindow().toggleDevTools(); }
-      }
-    ]
-  }
-]
-
-Menu.setApplicationMenu(Menu.buildFromTemplate(template))
-
-
 
 /* Here begins Angular */
 let app = angular.module('eGMR', [])
